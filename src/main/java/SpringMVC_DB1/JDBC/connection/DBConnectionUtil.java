@@ -10,14 +10,11 @@ import static SpringMVC_DB1.JDBC.connection.ConnectionConst.*;
 public class DBConnectionUtil {
 
     public static Connection getConnection() {
-        try{
-            // DB 연결 시도
-            log.info(URL);
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            log.info("get connection={}, class={}", connection, connection.getClass());
-
-            return connection;
-        } catch (SQLException e) {
+        try {
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            log.info("get connection={}, class={}", con, con.getClass());
+            return con;
+        } catch(SQLException e) {
             throw new IllegalStateException(e);
         }
     }
