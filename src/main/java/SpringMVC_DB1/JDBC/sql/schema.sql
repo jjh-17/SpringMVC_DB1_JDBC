@@ -1,4 +1,4 @@
--- H2 정상 작동 여부를 판단하기 위한 테스트 sql
+-- 정상 작동 여부를 판단하기 위한 테스트 sql
 drop table member if exists cascade;
 
 create table member (
