@@ -2,8 +2,8 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:8.0
-    container_name: mysql_container
+    image: ${DOCKER_MYSQL_IMAGE}
+    container_name: ${MYSQL_DATABASE}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -12,7 +12,7 @@ services:
     ports:
       - "${MYSQL_PORT}:${DOCKER_MYSQL_PORT}"
     networks:
-      - app-network
+      - ${DOCKER_NETWORK}
 
 networks:
   app-network:
