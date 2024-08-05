@@ -17,12 +17,16 @@ class MemberRepositoryV1Test {
 
     private MemberRepositoryV1 repositoryV1;
 
+//    //기본 DriverManager - 항상 새로운 커넥션 획득
+//    @BeforeEach
+//    void beforeEach() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+//        repositoryV1 = new MemberRepositoryV1(dataSource);
+//    }
+
+    // 커넥션 풀링
     @BeforeEach
     void beforeEach() {
-        //기본 DriverManager - 항상 새로운 커넥션 획득
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-
-        //커넥션 풀링
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
@@ -53,7 +57,7 @@ class MemberRepositoryV1Test {
         Assertions.assertThatThrownBy(() -> repositoryV1.findById(member.getMemberId()))
                         .isInstanceOf(NoSuchElementException.class);
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
 
 }

@@ -1,6 +1,7 @@
 package SpringMVC_DB1.JDBC.repository;
 
 import SpringMVC_DB1.JDBC.domain.Member;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -14,13 +15,10 @@ import java.util.NoSuchElementException;
 
 //트랜잭션 매니저 사용
 @Slf4j
+@RequiredArgsConstructor
 public class MemberRepositoryV3 {
 
     private final DataSource dataSource;
-
-    public MemberRepositoryV3(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";

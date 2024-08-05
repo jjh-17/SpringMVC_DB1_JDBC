@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 
-//트랜잭션을 적용하지 않은 단순 계좌이체 서비스
+// 트랜잭션을 적용하지 않은 단순 계좌이체 서비스
 @RequiredArgsConstructor
 public class MemberServiceV1 {
 
@@ -22,7 +22,7 @@ public class MemberServiceV1 {
 
     }
 
-    //예외 상황 가정 메서드
+    // 예외 상황 가정 메서드
     private void validation(Member toMember) {
         if (toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");

@@ -9,11 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import java.sql.SQLException;
-
 import static SpringMVC_DB1.JDBC.connection.ConnectionConst.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class MemberServiceV1Test {
@@ -40,7 +37,6 @@ class MemberServiceV1Test {
         memberRepositoryV1.delete(MEMBER_B);
         memberRepositoryV1.delete(MEMBER_EX);
     }
-
 
     @Test
     @DisplayName("정상 이체")
@@ -75,12 +71,12 @@ class MemberServiceV1Test {
         Assertions.assertThatThrownBy(
                         () -> memberServiceV1.accountTransfer(memberA.getMemberId(), memberEX.getMemberId(), MONEY))
                 .isInstanceOf(IllegalStateException.class);
+
         //then
         Member findA = memberRepositoryV1.findById(memberA.getMemberId());
         Member findEX = memberRepositoryV1.findById(memberEX.getMemberId());
         Assertions.assertThat(findA.getMoney()).isEqualTo(10000 - MONEY);
         Assertions.assertThat(findEX.getMoney()).isEqualTo(20000);
-
     }
 
 }

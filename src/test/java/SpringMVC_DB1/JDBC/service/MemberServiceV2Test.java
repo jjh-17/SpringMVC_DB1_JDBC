@@ -76,12 +76,11 @@ class MemberServiceV2Test {
         Assertions.assertThatThrownBy(
                         () -> memberServiceV2.accountTransfer(memberA.getMemberId(), memberEX.getMemberId(), MONEY))
                 .isInstanceOf(IllegalStateException.class);
+
         //then
         Member findA = memberRepositoryV2.findById(memberA.getMemberId());
         Member findEX = memberRepositoryV2.findById(memberEX.getMemberId());
         Assertions.assertThat(findA.getMoney()).isEqualTo(10000);
         Assertions.assertThat(findEX.getMoney()).isEqualTo(20000);
-
     }
-
 }

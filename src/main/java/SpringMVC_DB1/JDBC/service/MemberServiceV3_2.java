@@ -2,11 +2,8 @@ package SpringMVC_DB1.JDBC.service;
 
 import SpringMVC_DB1.JDBC.domain.Member;
 import SpringMVC_DB1.JDBC.repository.MemberRepositoryV3;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.sql.Connection;
@@ -16,7 +13,7 @@ import java.sql.SQLException;
 @Slf4j
 public class MemberServiceV3_2 {
 
-    //트랜잭션 매니저 주입
+    // 트랜잭션 매니저 주입
     private final TransactionTemplate transactionTemplate;
     private final MemberRepositoryV3 memberRepositoryV3;
 
@@ -25,11 +22,9 @@ public class MemberServiceV3_2 {
         this.memberRepositoryV3 = memberRepositoryV3;
     }
 
-    //롤백 적용
-    public void accountTransfer(String fromId, String toId, int money) throws SQLException{
-
-        //비즈니스 로직이 정상 수행되면 커밋
-        //언체크 예외 발생 시 롤백
+    // 롤백 적용
+    public void accountTransfer(String fromId, String toId, int money) throws SQLException {
+        // 비즈니스 로직이 정상 수행되면 커밋, 언체크 예외 발생 시 롤백
         transactionTemplate.executeWithoutResult((status) -> {
             try {
                 businessLogic(fromId, toId, money);
@@ -67,6 +62,4 @@ public class MemberServiceV3_2 {
             throw new IllegalStateException("이체중 예외 발생");
         }
     }
-
-
 }

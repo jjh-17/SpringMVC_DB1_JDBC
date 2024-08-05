@@ -80,15 +80,14 @@ class MemberServiceV3_2Test {
         memberRepositoryV3.save(memberEX);
 
         //when - 아이디가 "ex"인 멤버의 잔액 변경 실패
-        Assertions.assertThatThrownBy(
-                        () -> memberServiceV3_2.accountTransfer(memberA.getMemberId(), memberEX.getMemberId(), MONEY))
+        Assertions.assertThatThrownBy(() -> memberServiceV3_2.accountTransfer(memberA.getMemberId(), memberEX.getMemberId(), MONEY))
                 .isInstanceOf(IllegalStateException.class);
+
         //then
         Member findA = memberRepositoryV3.findById(memberA.getMemberId());
         Member findEX = memberRepositoryV3.findById(memberEX.getMemberId());
         Assertions.assertThat(findA.getMoney()).isEqualTo(10000);
         Assertions.assertThat(findEX.getMoney()).isEqualTo(20000);
-
     }
 
 }

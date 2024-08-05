@@ -21,9 +21,9 @@ public class MemberServiceV3_1 {
     private final PlatformTransactionManager transactionManager;
     private final MemberRepositoryV3 memberRepositoryV3;
 
-    //롤백 적용
+    // 롤백 적용
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-        //트랜잭션 시작
+        // 트랜잭션 시작
         TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
@@ -63,6 +63,4 @@ public class MemberServiceV3_1 {
             throw new IllegalStateException("이체중 예외 발생");
         }
     }
-
-
 }

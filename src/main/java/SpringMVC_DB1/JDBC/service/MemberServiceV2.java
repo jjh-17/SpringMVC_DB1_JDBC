@@ -22,14 +22,12 @@ public class MemberServiceV2 {
         Connection con = dataSource.getConnection();
 
         try {
-            con.setAutoCommit(false); //자동 커밋 종료 - 트랜잭션 시작
+            con.setAutoCommit(false);   //자동 커밋 종료 - 트랜잭션 시작
             businessLogic(con, fromId, toId, money);
-            con.commit(); //성공 시 커밋
-
+            con.commit();               //성공 시 커밋
         } catch (Exception e) {
-            con.rollback(); //실패시 롤백
+            con.rollback();             //실패시 롤백
             throw new IllegalStateException(e);
-            
         } finally {
             release(con);
         }
@@ -63,6 +61,5 @@ public class MemberServiceV2 {
             throw new IllegalStateException("이체중 예외 발생");
         }
     }
-
 
 }
