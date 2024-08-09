@@ -2,6 +2,8 @@ package SpringMVC_DB1.JDBC.service;
 
 import SpringMVC_DB1.JDBC.domain.Member;
 import SpringMVC_DB1.JDBC.repository.MemberRepositoryV3;
+import io.github.cdimascio.dotenv.Dotenv;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -15,32 +17,17 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-//트랜잭션 - DataSource, TransactionManager 자동 등록
 @Slf4j
-@SpringBootTest //@Transactinal과 같은 스프링 AOP를 테스트에 적용하려면 선언 필요
+@SpringBootTest
 class MemberServiceV3_4Test {
 
-    private static final String MEMBER_A = "memberA";
-    private static final String MEMBER_B = "memberB";
-    private static final String MEMBER_EX = "ex";
-    private static final int MONEY = 2000;
-
-    @Autowired
-    private MemberRepositoryV3 memberRepositoryV3;
-    @Autowired
-    private MemberServiceV3_3 memberServiceV3_3;
-
-    @AfterEach
-    void after() throws SQLException {
-        memberRepositoryV3.delete(MEMBER_A);
-        memberRepositoryV3.delete(MEMBER_B);
-        memberRepositoryV3.delete(MEMBER_EX);
+    static {
+        setSysArgs();
     }
 
     //테스트 내 적용할 설정 정보
     @TestConfiguration
-    static class TestConfig{
-
+    static class TestConfig {
         private final DataSource dataSource;
 
         public TestConfig(DataSource dataSource) {
@@ -56,6 +43,38 @@ class MemberServiceV3_4Test {
         MemberServiceV3_3 memberServiceV3_3() {
             return new MemberServiceV3_3(memberRepositoryV3());
         }
+    }
+
+//    //테스트 내 적용할 설정 정보
+//    @TestConfiguration
+//    @RequiredArgsConstructor
+//    static class TestConfig2 {
+//        private final DataSource dataSource;
+//
+//        @Bean
+//        MemberRepositoryV3 memberRepositoryV3() {
+//            return new MemberRepositoryV3(dataSource);
+//        }
+//
+//        @Bean
+//        MemberServiceV3_3 memberServiceV3_3() {
+//            return new MemberServiceV3_3(memberRepositoryV3());
+//        }
+//    }
+
+    private static final String MEMBER_A = "memberA";
+    private static final String MEMBER_B = "memberB";
+    private static final String MEMBER_EX = "ex";
+    private static final int MONEY = 2000;
+
+    @Autowired private MemberRepositoryV3 memberRepositoryV3;
+    @Autowired private MemberServiceV3_3 memberServiceV3_3;
+
+    @AfterEach
+    void after() throws SQLException {
+        memberRepositoryV3.delete(MEMBER_A);
+        memberRepositoryV3.delete(MEMBER_B);
+        memberRepositoryV3.delete(MEMBER_EX);
     }
 
     //정보 확인
@@ -113,7 +132,24 @@ class MemberServiceV3_4Test {
         Member findEX = memberRepositoryV3.findById(memberEX.getMemberId());
         Assertions.assertThat(findA.getMoney()).isEqualTo(10000);
         Assertions.assertThat(findEX.getMoney()).isEqualTo(20000);
-
     }
 
+    private static void setSysArgs() {
+        Dotenv dotenv = Dotenv.configure().load();
+
+        System.setProperty("MYSQL_HOST", dotenv.get("MYSQL_HOST"));
+        System.setProperty("MYSQL_PORT", dotenv.get("MYSQL_PORT"));
+        System.setProperty("MYSQL_DATABASE", dotenv.get("MYSQL_DATABASE"));
+        System.setProperty("MYSQL_USER", dotenv.get("MYSQL_USER"));
+        System.setProperty("MYSQL_PASSWORD", dotenv.get("MYSQL_PASSWORD"));
+        System.setProperty("MYSQL_ROOT_PASSWORD", dotenv.get("MYSQL_ROOT_PASSWORD"));
+
+        System.setProperty("SPRING_DATASOURCE_HOST", dotenv.get("MYSQL_HOST"));
+        System.setProperty("SPRING_DATASOURCE_PORT", dotenv.get("MYSQL_PORT"));
+        System.setProperty("SPRING_DATASOURCE_URL",
+                String.format("jdbc:mysql://%s:%s/%s",
+                        dotenv.get("MYSQL_HOST"),
+                        dotenv.get("MYSQL_PORT"),
+                        dotenv.get("MYSQL_DATABASE")));
+    }
 }

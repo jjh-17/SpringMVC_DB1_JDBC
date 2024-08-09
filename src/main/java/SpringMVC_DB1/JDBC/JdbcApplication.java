@@ -25,15 +25,15 @@ public class JdbcApplication {
 		System.setProperty("MYSQL_PASSWORD", dotenv.get("MYSQL_PASSWORD"));
 		System.setProperty("MYSQL_ROOT_PASSWORD", dotenv.get("MYSQL_ROOT_PASSWORD"));
 
-		System.setProperty("SPRING_DATASOURCE_HOST", dotenv.get("SPRING_DATASOURCE_HOST"));
-		System.setProperty("SPRING_DATASOURCE_PORT", dotenv.get("SPRING_DATASOURCE_PORT"));
+		System.setProperty("SPRING_DATASOURCE_HOST", dotenv.get("MYSQL_HOST"));
+		System.setProperty("SPRING_DATASOURCE_PORT", dotenv.get("MYSQL_PORT"));
 		System.setProperty("SPRING_DATASOURCE_URL",
 				String.format("jdbc:mysql://%s:%s/%s",
-						dotenv.get("SPRING_DATASOURCE_HOST"),
-						dotenv.get("SPRING_DATASOURCE_PORT"),
+						dotenv.get("MYSQL_HOST"),
+						dotenv.get("MYSQL_PORT"),
 						dotenv.get("MYSQL_DATABASE")));
-		System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
-		System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+//		System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
+//		System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
 	}
 
 }
