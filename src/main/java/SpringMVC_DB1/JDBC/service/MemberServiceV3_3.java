@@ -18,7 +18,7 @@ public class MemberServiceV3_3 {
 
     private final MemberRepositoryV3 memberRepositoryV3;
 
-    //아래 메서드가 호출되면 트랜잭션을 호출한다. 성공 시 커밋, 실패 시 롤백
+    // 아래 메서드가 호출되면 트랜잭션을 호출한다. 성공 시 커밋, 실패 시 롤백
     @Transactional
     public void accountTransfer(String fromId, String toId, int money) throws SQLException{
         businessLogic(fromId, toId, money);
