@@ -3,7 +3,6 @@ package SpringMVC_DB1.JDBC.service;
 import SpringMVC_DB1.JDBC.domain.Member;
 import SpringMVC_DB1.JDBC.repository.MemberRepositoryV3;
 import io.github.cdimascio.dotenv.Dotenv;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
