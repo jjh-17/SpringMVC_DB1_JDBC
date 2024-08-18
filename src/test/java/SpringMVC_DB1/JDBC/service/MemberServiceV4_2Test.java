@@ -2,8 +2,7 @@ package SpringMVC_DB1.JDBC.service;
 
 import SpringMVC_DB1.JDBC.domain.Member;
 import SpringMVC_DB1.JDBC.repository.MemberRepository;
-import SpringMVC_DB1.JDBC.repository.MemberRepositoryV3;
-import SpringMVC_DB1.JDBC.repository.MemberRepositoryV4_1;
+import SpringMVC_DB1.JDBC.repository.MemberRepositoryV4_2;
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -15,13 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Slf4j
 @SpringBootTest
-class MemberServiceV4Test {
+class MemberServiceV4_2Test {
 
     private static final String MEMBER_A = "memberA";
     private static final String MEMBER_B = "memberB";
@@ -53,7 +51,7 @@ class MemberServiceV4Test {
 
         @Bean
         MemberRepository memberRepository() {
-            return new MemberRepositoryV4_1(dataSource);
+            return new MemberRepositoryV4_2(dataSource);
         }
 
         @Bean
