@@ -85,7 +85,7 @@ public class MemberRepositoryV4_1 implements MemberRepository {
 
     //파라미터로 Connection을 받을 필요 없어짐
     @Override
-    public void update(String memberId, int money) throws SQLException {
+    public void update(String memberId, int money) {
         String sql = "update member set money=? where member_id=?";
 
         Connection con = null;
@@ -127,7 +127,7 @@ public class MemberRepositoryV4_1 implements MemberRepository {
     }
 
     //트랜잭션 동기화 사용을 위한 DataSourceUtils
-    private Connection getConnection() throws SQLException {
+    private Connection getConnection() {
         Connection connection = DataSourceUtils.getConnection(dataSource);
         log.info("connection={}, class={}", connection, connection.getClass());
         return connection;

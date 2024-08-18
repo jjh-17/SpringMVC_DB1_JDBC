@@ -1,11 +1,10 @@
 package SpringMVC_DB1.JDBC.service;
 
 import SpringMVC_DB1.JDBC.domain.Member;
-import SpringMVC_DB1.JDBC.repository.MemberRepositoryV3;
+import SpringMVC_DB1.JDBC.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.sql.SQLException;
 
 /**
@@ -17,7 +16,7 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class MemberServiceV4 {
 
-    private final MemberRepositoryV3 memberRepositoryV3;
+    private final MemberRepository memberRepository;
 
     // 아래 메서드가 호출되면 트랜잭션을 호출한다. 성공 시 커밋, 실패 시 롤백
     @Transactional
@@ -26,12 +25,12 @@ public class MemberServiceV4 {
     }
 
     private void businessLogic(String fromId, String toId, int money) throws SQLException {
-        Member fromMember = memberRepositoryV3.findById(fromId);
-        Member toMember = memberRepositoryV3.findById(toId);
+        Member fromMember = memberRepository.findById(fromId);
+        Member toMember = memberRepository.findById(toId);
 
-        memberRepositoryV3.update(fromId, fromMember.getMoney() - money);
+        memberRepository.update(fromId, fromMember.getMoney() - money);
         validation(toMember);
-        memberRepositoryV3.update(toId, toMember.getMoney() + money);
+        memberRepository.update(toId, toMember.getMoney() + money);
     }
 
     //예외 상황 가정 메서드
